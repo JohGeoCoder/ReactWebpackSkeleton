@@ -25,7 +25,7 @@ export default React.createClass({
       <div>
         <h2>Message</h2>
         <p>{this.state.message}</p>
-        <p>Yay!</p>
+        <p>Yay! Wassup?  ddd</p>
         {this.props.children}
       </div>
     )

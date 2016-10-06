@@ -1,3 +1,4 @@
+
 var express = require('express')
 var path = require('path')
 var compression = require('compression')
@@ -34,15 +35,19 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  /*app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });*/
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'public/index.html')));
+    res.end();
   });
 } else {
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(path.join(__dirname, 'public')));
 
   // send all requests to index.html so browserHistory works
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
 
@@ -55,3 +60,4 @@ app.listen(PORT, function() {
     console.log('Production Express server running at localhost:' + PORT)
   }
 })
+
