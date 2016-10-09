@@ -7,7 +7,9 @@ module.exports = {
     bundle: './index'
   },
   output: {
-    filename: 'public/[name].js'
+    path: 'public',
+    filename: '[name].js',
+    publicPath: '/'
   },
   module: {
     loaders: [{

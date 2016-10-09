@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 export default React.createClass({
 
   getInitialState: function() {
@@ -9,11 +11,27 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    this.serverRequest = $.get("http://localhost:8080/api/data", function (result) {
-      this.setState({
-        message: result.message
-      });
-    }.bind(this));
+    var me = this;
+    var xhr = new XMLHttpRequest();
+    me.serverRequest = xhr;
+
+    xhr.open('GET', 'http://localhost:8080/api/data');
+    xhr.send(null);
+
+    xhr.onreadystatechange = function () {
+      var DONE = 4; // readyState 4 means the request is done.
+      var OK = 200; // status 200 is a successful return.
+      if (xhr.readyState === DONE) {
+        if (xhr.status === OK) {
+          var response = JSON.stringify(eval("(" + xhr.responseText + ")"));
+          me.setState({
+            message: response.message
+          });
+        } else {
+          console.log('Error: ' + xhr.status); // An error occurred during the request.
+        }
+      }
+    }
   },
 
   componentWillUnmount: function() {
@@ -25,7 +43,7 @@ export default React.createClass({
       <div>
         <h2>Message</h2>
         <p>{this.state.message}</p>
-        <p>Yay! Wassup?  ddd</p>
+        <p>Yay! Wassup?  helloppp</p>
         {this.props.children}
       </div>
     )

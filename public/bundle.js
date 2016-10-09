@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -25730,7 +25730,7 @@
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25743,7 +25743,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createClass({
-	  displayName: "Message",
+	  displayName: 'Message',
 
 
 	  getInitialState: function getInitialState() {
@@ -25753,11 +25753,28 @@
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    this.serverRequest = $.get("http://localhost:8080/api/data", function (result) {
-	      this.setState({
-	        message: result.message
-	      });
-	    }.bind(this));
+	    var me = this;
+	    var xhr = new XMLHttpRequest();
+	    me.serverRequest = xhr;
+
+	    xhr.open('GET', 'http://localhost:8080/api/data');
+	    xhr.send(null);
+
+	    xhr.onreadystatechange = function () {
+	      var DONE = 4; // readyState 4 means the request is done.
+	      var OK = 200; // status 200 is a successful return.
+	      if (xhr.readyState === DONE) {
+	        if (xhr.status === OK) {
+	          console.log(xhr.responseText); // 'This is the returned text.'
+	          var response = JSON.stringify(eval("(" + xhr.responseText + ")"));
+	          me.setState({
+	            message: response.message
+	          });
+	        } else {
+	          console.log('Error: ' + xhr.status); // An error occurred during the request.
+	        }
+	      }
+	    };
 	  },
 
 	  componentWillUnmount: function componentWillUnmount() {
@@ -25766,22 +25783,22 @@
 
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
+	      'div',
 	      null,
 	      _react2.default.createElement(
-	        "h2",
+	        'h2',
 	        null,
-	        "Message"
+	        'Message'
 	      ),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
 	        this.state.message
 	      ),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
-	        "Yay! Wassup?  ddd"
+	        'Yay! Wassup?  hello'
 	      ),
 	      this.props.children
 	    );
