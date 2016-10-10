@@ -3,11 +3,6 @@ var express = require('express')
 var path = require('path')
 var compression = require('compression')
 
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
-
 //Used for database connection
 /*var Sequelize = require('sequelize');
 var connection = new Sequelize('ClarksSummit', 'root', 'password', {
@@ -66,9 +61,14 @@ app.get('/api/data', function(req, res){
 });
 */
 if (isDeveloping) {
-  const compiler = webpack(config);
+  const webpack = require('webpack');
+  const webpackMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  
+  const webpackConfig = require('./webpack.config.js');
+  const compiler = webpack(webpackConfig);
   const middleware = webpackMiddleware(compiler, {
-    publicPath: config.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
     contentBase: 'src',
     stats: {
       colors: true,

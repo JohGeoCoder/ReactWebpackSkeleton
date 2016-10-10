@@ -23,11 +23,17 @@ module.exports = {
         }
       },
       {
-          test: /\.scss$/,
-          loaders: ['style', 'css', 'sass']
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          "style",
+          "css!sass"
+        )
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin("[name].css")
+  ]
 };
 
 //https://www.jonathan-petitcolas.com/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html
