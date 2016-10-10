@@ -4,8 +4,8 @@ var path = require('path')
 var compression = require('compression')
 
 //Used for database connection
-/*var Sequelize = require('sequelize');
-var connection = new Sequelize('ClarksSummit', 'root', 'password', {
+var Sequelize = require('sequelize');
+var connection = new Sequelize('skeleton_db', 'root', 'password', {
   host: 'localhost',
   port: 3306,
   dialect: 'mysql'
@@ -23,7 +23,7 @@ connection.authenticate().then(function(err){
 
 connection.sync();
 
-var models = require('./app/ModelInitializer.js')(connection, Sequelize);*/
+var models = require('./app/ModelInitializer.js')(connection, Sequelize);
 
 var app = express()
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -64,7 +64,7 @@ if (isDeveloping) {
   const webpack = require('webpack');
   const webpackMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
-  
+
   const webpackConfig = require('./webpack.config.js');
   const compiler = webpack(webpackConfig);
   const middleware = webpackMiddleware(compiler, {
@@ -82,13 +82,13 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  /*app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  });*/
   app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+/*  app.get('*', function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'public/index.html')));
     res.end();
-  });
+  });*/
 } else {
   app.use(express.static(path.join(__dirname, 'public')));
 

@@ -8,7 +8,7 @@ module.exports = {
     bundle: './index'
   },
   output: {
-    path: 'public',
+    path: path.join(__dirname, 'public'),
     filename: '[name].js',
     publicPath: '/'
   },

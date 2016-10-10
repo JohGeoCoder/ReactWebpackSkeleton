@@ -5,11 +5,11 @@ module.exports = function(connection, Sequelize){
 			primaryKey: true,
 			autoIncrement: true
 		},
-		contentKey : {
+		exampleString : {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
-		content : {
+		exampleBlob : {
 			type: Sequelize.BLOB('long'),
 			allowNull: true
 		}
