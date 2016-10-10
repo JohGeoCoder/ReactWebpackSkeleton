@@ -2,10 +2,29 @@
 var express = require('express')
 var path = require('path')
 var compression = require('compression')
+var Sequelize = require('sequelize');
+var connection = new Sequelize('ClarksSummit', 'root', 'password', {
+  host: 'localhost',
+  port: 3306,
+  dialect: 'mysql'
+});
+
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
+
+connection.authenticate().then(function(err){
+  if(err){
+    console.log('Connection ERROR');
+  } else{
+    console.log('Connection SUCCESS');
+  }
+}).catch(function(err){
+  console.log("Unable to connect to the database", err);
+});
+
+var models = require('./app/ModelInitializer.js')(connection, Sequelize);
 
 var app = express()
 const isDeveloping = process.env.NODE_ENV !== 'production';
