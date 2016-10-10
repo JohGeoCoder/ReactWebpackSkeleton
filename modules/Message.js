@@ -4,7 +4,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      message: ""
+      exampleString: ""
     };
   },
 
@@ -22,9 +22,7 @@ export default React.createClass({
       if (xhr.readyState === DONE) {
         if (xhr.status === OK) {
           var response = JSON.parse(xhr.responseText);
-          me.setState({
-            message: response.message
-          });
+          me.setState(response);
         } else {
           console.log('Error: ' + xhr.status); // An error occurred during the request.
         }
@@ -40,7 +38,7 @@ export default React.createClass({
     return (
       <div>
         <h2>Message</h2>
-        <p>Yay! Wassup? {this.state.message}</p>
+        <p>Yay! Wassup? {this.state.exampleString}</p>
         {this.props.children}
       </div>
     )

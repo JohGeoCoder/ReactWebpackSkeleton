@@ -38,9 +38,8 @@ app.use(compression())
 
 app.get('/api/data', function(req, res){
   models.ExampleModel.findOne().then(function(result){
-    res.json({
-      "message" : result.exampleString
-    })
+    var thing = result.get({plain: true});
+    res.json(thing);
   })
 })
 
