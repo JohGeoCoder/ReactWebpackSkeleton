@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 export default React.createClass({
 
   getInitialState: function() {
@@ -43,7 +41,7 @@ export default React.createClass({
       <div>
         <h2>Message</h2>
         <p>{this.state.message}</p>
-        <p>Yay! Wassup?  helloppp</p>
+        <p>Yay! Wassup?  hello</p>
         {this.props.children}
       </div>
     )

@@ -25765,7 +25765,6 @@
 	      var OK = 200; // status 200 is a successful return.
 	      if (xhr.readyState === DONE) {
 	        if (xhr.status === OK) {
-	          console.log(xhr.responseText); // 'This is the returned text.'
 	          var response = JSON.stringify(eval("(" + xhr.responseText + ")"));
 	          me.setState({
 	            message: response.message
@@ -25774,7 +25773,7 @@
 	          console.log('Error: ' + xhr.status); // An error occurred during the request.
 	        }
 	      }
-	    };
+	    }.bind(me);
 	  },
 
 	  componentWillUnmount: function componentWillUnmount() {
@@ -25798,7 +25797,7 @@
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'Yay! Wassup?  hello'
+	        'Yay! Wassup?  helloppp'
 	      ),
 	      this.props.children
 	    );
