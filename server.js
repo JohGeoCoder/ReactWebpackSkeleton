@@ -36,12 +36,7 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 
 app.use(compression())
 
-app.get('/api/data', function(req, res){
-  models.ExampleModel.findOne().then(function(result){
-    var thing = result.get({plain: true});
-    res.json(thing);
-  })
-})
+require('./app/api.js')(app, models);
 
 //Example Sequelize code
 /*app.get('/', function(req, res){
@@ -67,6 +62,7 @@ app.get('/api/data', function(req, res){
 
 });
 */
+
 if (isDeveloping) {
   const webpack = require('webpack');
   const webpackMiddleware = require('webpack-dev-middleware');
