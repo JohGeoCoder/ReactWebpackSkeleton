@@ -21,7 +21,13 @@ connection.authenticate().then(function(err){
   console.log("Unable to connect to the database", err);
 });
 
-connection.sync();
+connection.sync().then(function(){
+  var tempModels = require('./app/ModelInitializer.js')(connection, Sequelize);
+  tempModels.ExampleModel.upsert({
+    exampleString: "Heyoooo",
+    exampleBlob: "Hiyaaaaaa"
+  })
+});
 
 var models = require('./app/ModelInitializer.js')(connection, Sequelize);
 
@@ -31,8 +37,10 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 app.use(compression())
 
 app.get('/api/data', function(req, res){
-  res.json({
-    "message" : "Hello, World!"
+  models.ExampleModel.findOne().then(function(result){
+    res.json({
+      "message" : result.exampleString
+    })
   })
 })
 

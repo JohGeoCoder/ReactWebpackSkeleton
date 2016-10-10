@@ -4,7 +4,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      message: "No message"
+      message: ""
     };
   },
 
@@ -21,7 +21,7 @@ export default React.createClass({
       var OK = 200; // status 200 is a successful return.
       if (xhr.readyState === DONE) {
         if (xhr.status === OK) {
-          var response = JSON.stringify(eval("(" + xhr.responseText + ")"));
+          var response = JSON.parse(xhr.responseText);
           me.setState({
             message: response.message
           });
@@ -40,8 +40,7 @@ export default React.createClass({
     return (
       <div>
         <h2>Message</h2>
-        <p>{this.state.message}</p>
-        <p>Yay! Wassup?  hello</p>
+        <p>Yay! Wassup? {this.state.message}</p>
         {this.props.children}
       </div>
     )
