@@ -26,6 +26,8 @@ connection.authenticate().then(function(err){
   console.log("Unable to connect to the database", err);
 });
 
+connection.sync();
+
 var models = require('./app/ModelInitializer.js')(connection, Sequelize);*/
 
 var app = express()
@@ -39,6 +41,30 @@ app.get('/api/data', function(req, res){
   })
 })
 
+//Example Sequelize code
+/*app.get('/', function(req, res){
+  connection.sync().then(function(){
+    connection.query('\
+      SELECT parent.* \
+      FROM homepagertes as parent \
+      INNER JOIN( \
+        SELECT contentKey, MAX(createdAt) as latestCreatedAt \
+        FROM homepagertes \
+        GROUP BY contentKey \
+      ) as child \
+      ON parent.contentKey = child.contentKey AND parent.createdAt = child.latestCreatedAt \
+    ', { model: models.HomepageRTE })
+    .then(function(contents){
+      var rteContent = [];
+      contents.forEach(function(e){
+        rteContent[e.dataValues.contentKey] = e.dataValues.content;
+      });
+      res.render('home', {rteContents: rteContent});
+    });
+  });
+
+});
+*/
 if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
