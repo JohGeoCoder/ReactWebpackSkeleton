@@ -3,40 +3,14 @@ var express = require('express')
 var path = require('path')
 var compression = require('compression')
 
-//Used for database connection
-var Sequelize = require('sequelize');
-var connection = new Sequelize('skeleton_db', 'root', 'password', {
-  host: 'localhost',
-  port: 3306,
-  dialect: 'mysql'
-});
-
-connection.authenticate().then(function(err){
-  if(err){
-    console.log('Connection ERROR');
-  } else{
-    console.log('Connection SUCCESS');
-  }
-}).catch(function(err){
-  console.log("Unable to connect to the database", err);
-});
-
-connection.sync().then(function(){
-  var tempModels = require('./app/ModelInitializer.js')(connection, Sequelize);
-  tempModels.ExampleModel.upsert({
-    exampleString: "Heyoooo",
-    exampleBlob: "Hiyaaaaaa"
-  })
-});
-
-var models = require('./app/ModelInitializer.js')(connection, Sequelize);
+var models = require('./app/ModelInitializer.js')();
 
 var app = express()
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
 app.use(compression())
 
-require('./app/api.js')(app, models);
+require('./app/APIInitializer.js')(app, models);
 
 if (isDeveloping) {
   const webpack = require('webpack');
