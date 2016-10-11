@@ -1,3 +1,6 @@
+require('./js/Message.js')
+require('./sass/styles.scss')
+
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
@@ -7,8 +10,6 @@ import Repos from './modules/Repos'
 import Repo from './modules/Repo'
 import Home from './modules/Home'
 import Message from './modules/Message'
-
-require('./sass/styles.scss')
 
 render((
   <Router history={browserHistory}>

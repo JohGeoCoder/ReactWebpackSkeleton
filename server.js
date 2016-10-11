@@ -5,10 +5,11 @@ var compression = require('compression')
 
 var models = require('./app/ModelInitializer.js')();
 
-models.ExampleModel.upsert({
+//Example Data
+/*models.ExampleModel.upsert({
   exampleString: "Heyoooo",
   exampleBlob: "Hiyaaaaaa"
-})
+})*/
 
 var app = express()
 const isDeveloping = process.env.NODE_ENV !== 'production';
