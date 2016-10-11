@@ -3,14 +3,12 @@ import React from 'react'
 export default React.createClass({
 
   getInitialState: function() {
-    return {
-      exampleString: ""
-    };
+    return {};
   },
 
   componentDidMount: function() {
     var me = this;
-    window.ProjectName.MessagePage.GetMessage(this, function(response){
+    ProjectName.MessagePage.GetMessage(this, function(response){
       me.setState(response);
     });
   },

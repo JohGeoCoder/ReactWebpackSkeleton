@@ -1,11 +1,11 @@
-window.ProjectName = window.ProjectName || {};
+var ProjectName = window.ProjectName = window.ProjectName || {};
 
-window.ProjectName.MessagePage = {
-	GetMessage : function(ReactInstance, done){
+ProjectName.MessagePage = function(){
+	var GetMessage = function(ReactInstance, callback){
 		var xhr = new XMLHttpRequest();
 	    ReactInstance.serverRequest = xhr;
 
-	    xhr.open('GET', 'http://localhost:8080/api/data');
+	    xhr.open('GET', '/api/data');
 	    xhr.send(null);
 
 	    xhr.onreadystatechange = function () {
@@ -14,11 +14,15 @@ window.ProjectName.MessagePage = {
 	      if (xhr.readyState === DONE) {
 	        if (xhr.status === OK) {
 	          var response = JSON.parse(xhr.responseText);
-	          done(response);
+	          callback(response);
 	        } else {
 	          console.log('Error: ' + xhr.status); // An error occurred during the request.
 	        }
 	      }
 	    }
-	}
-}
+	};
+
+	return {
+		GetMessage : GetMessage
+	};
+}();

@@ -2,6 +2,7 @@
 var express = require('express')
 var path = require('path')
 var compression = require('compression')
+var app = express()
 
 var models = require('./app/ModelInitializer.js')();
 
@@ -11,7 +12,6 @@ var models = require('./app/ModelInitializer.js')();
   exampleBlob: "Hiyaaaaaa"
 })*/
 
-var app = express()
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
 app.use(compression())
@@ -43,10 +43,6 @@ if (isDeveloping) {
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
-/*  app.get('*', function response(req, res) {
-    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'public/index.html')));
-    res.end();
-  });*/
 } else {
   app.use(express.static(path.join(__dirname, 'public')));
 
