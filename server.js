@@ -2,6 +2,7 @@
 var express = require('express')
 var path = require('path')
 var compression = require('compression')
+var passport = require('passport')
 var app = express()
 var Sequelize = require('sequelize');
 
@@ -16,6 +17,8 @@ var models = require('./app/ModelInitializer.js')(connection, Sequelize);
 })*/
 
 require('./app/APIInitializer.js')(app, models);
+
+require('./app/Passport.js')(passport, models);
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
@@ -52,6 +55,16 @@ if (isDeveloping) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
+
+
+app.use(session({
+  secret: "LongSecretKey",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(compression())
 
