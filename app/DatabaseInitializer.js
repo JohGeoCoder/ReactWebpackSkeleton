@@ -15,13 +15,7 @@ module.exports = function(Sequelize){
 	  console.log("Unable to connect to the database", err);
 	});
 
-	connection.sync().then(function(){
-/*	  var tempModels = ModelInitializer(connection, Sequelize);
-	  tempModels.ExampleModel.upsert({
-	    exampleString: "Heyoooo",
-	    exampleBlob: "Hiyaaaaaa"
-	  })*/
-	});
-
+	connection.sync();
+	
 	return connection;
 }
