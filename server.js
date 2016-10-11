@@ -3,8 +3,11 @@ var express = require('express')
 var path = require('path')
 var compression = require('compression')
 var app = express()
+var Sequelize = require('sequelize');
 
-var models = require('./app/ModelInitializer.js')();
+//Database connection and models.
+var connection = require('./app/DatabaseInitializer.js')(Sequelize);
+var models = require('./app/ModelInitializer.js')(connection, Sequelize);
 
 //Example Data
 /*models.ExampleModel.upsert({
@@ -12,11 +15,9 @@ var models = require('./app/ModelInitializer.js')();
   exampleBlob: "Hiyaaaaaa"
 })*/
 
-const isDeveloping = process.env.NODE_ENV !== 'production';
-
-app.use(compression())
-
 require('./app/APIInitializer.js')(app, models);
+
+const isDeveloping = process.env.NODE_ENV !== 'production';
 
 if (isDeveloping) {
   const webpack = require('webpack');
@@ -51,6 +52,8 @@ if (isDeveloping) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
+
+app.use(compression())
 
 var PORT = process.env.PORT || 8080
 app.listen(PORT, function() {

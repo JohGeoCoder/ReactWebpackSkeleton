@@ -9,13 +9,12 @@ module.exports = function(Sequelize){
 	  if(err){
 	    console.log('Connection ERROR');
 	  } else{
+	    connection.sync();
 	    console.log('Connection SUCCESS');
 	  }
 	}).catch(function(err){
 	  console.log("Unable to connect to the database", err);
 	});
-
-	connection.sync();
 	
 	return connection;
 }
