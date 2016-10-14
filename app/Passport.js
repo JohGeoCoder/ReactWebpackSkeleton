@@ -51,33 +51,11 @@ module.exports = function(passport, models) {
             }).then(function(user, created){
                 if(created){
                     return done(null, false);
+                } else{
+                    return done(null, user);
                 }
             }).error(function(err){
                 return done(err);
-            });
-
-            User.findOne({}, function(err, user){
-                if(err){
-                    return done(err);
-                }
-
-                if(user){
-                    return done(null, false, req.flash('signupMessage', 'Only one admin account is permitted at this time.'));
-                }
-                else{
-                    var newUser = new User();
-                    newUser.local.username = username;
-                    newUser.local.password = newUser.generateHash(password);
-                    newUser.local.isAdmin = true;
-
-                    newUser.save(function(err){
-                        if(err){
-                            throw err;
-                        }
-
-                        return done(null, newUser);
-                    });
-                }
             });
 
             /*
