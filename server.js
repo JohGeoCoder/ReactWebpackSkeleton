@@ -4,6 +4,7 @@ var path = require('path')
 var compression = require('compression')
 var passport = require('passport')
 var app = express()
+var session = require('express-session')
 var Sequelize = require('sequelize');
 
 //Database connection and models.
