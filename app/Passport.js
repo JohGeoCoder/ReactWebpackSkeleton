@@ -99,6 +99,25 @@ module.exports = function(passport, models) {
 
         username = username.toLowerCase();
 
+        models.User.findOne({
+            where: {
+                "local.username" : username
+            }
+        }).then(function(user){
+            if(!user){
+                return done(null, false);
+            }
+
+            if(!user.validPassword(password)){
+                return done(null, false);
+            }
+
+            user.loginSuccess = true;
+            return done(null, user);
+        }).error(function(err){
+            return done(err);
+        });
+
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
         User.findOne({ 'local.username' :  username }, function(err, user) {
