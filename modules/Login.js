@@ -1,0 +1,59 @@
+import React from 'react'
+import TextInput from './TextInput'
+
+export default React.createClass({
+	getInitialState: function(){
+		return {
+			username: "",
+			password: ""
+		}
+	},
+
+	submitLogin: function(login){
+		console.log(login)
+	},
+
+	handleSubmit : function(e){
+		e.preventDefault()
+
+		var username = this.state.username.trim()
+		var password = this.state.password.trim()
+
+		if(!username || !password){
+			return;
+		}
+
+		this.submitLogin({
+			username: username,
+			password: password
+		});
+
+		this.setState({
+	    	username: "",
+	    	password: ""
+	    });
+	},
+
+	setValue: function(field, event){
+		var object = {};
+		object[field] = event.target.value
+		this.setState(object);
+	},
+
+	render: function() {
+		return(
+			<div>
+				<form onSubmit={this.handleSubmit}>
+		    		<TextInput value={this.state.username}
+		    			onChange={this.setValue.bind(this, 'username')} />
+		    		<TextInput isPassword={true}
+		    			value={this.state.password}
+		    			onChange={this.setValue.bind(this, 'password')} />
+		    		<div>
+		    			<button type="submit">Log In</button>
+		    		</div>
+				</form>
+			</div>
+		)
+	}
+})
