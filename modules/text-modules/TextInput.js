@@ -2,6 +2,13 @@ import React from 'react'
 
 import Label from './Label'
 
+/*
+	PROPS:
+	elementId
+	labelText
+	value
+*/
+
 export default React.createClass({
 	getInitialState: function(){
 		return {

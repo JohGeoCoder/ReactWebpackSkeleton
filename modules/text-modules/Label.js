@@ -1,5 +1,11 @@
 import React from 'react'
 
+/*
+	PROPS
+	forId
+	labelText
+*/
+
 export default React.createClass({
 	getInitialState: function(){
 		return {
