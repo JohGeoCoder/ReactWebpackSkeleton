@@ -17,9 +17,9 @@ var models = require('./app/ModelInitializer.js')(connection, Sequelize);
   exampleBlob: "Hiyaaaaaa"
 })*/
 
-require('./app/APIInitializer.js')(app, models);
-
 require('./app/Passport.js')(passport, models);
+
+require('./app/APIInitializer.js')(app, models, passport);
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 

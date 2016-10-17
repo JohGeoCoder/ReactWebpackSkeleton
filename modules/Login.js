@@ -11,6 +11,8 @@ export default React.createClass({
 
 	submitLogin: function(login){
 		console.log(login)
+
+		
 	},
 
 	handleSubmit : function(e){

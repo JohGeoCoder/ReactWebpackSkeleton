@@ -50,9 +50,9 @@ module.exports = function(passport, models) {
                 }
             }).then(function(user, created){
                 if(created){
-                    return done(null, false);
-                } else{
                     return done(null, user);
+                } else{
+                    return done(null, user, "User Already Exists");
                 }
             }).error(function(err){
                 return done(err);
@@ -105,11 +105,11 @@ module.exports = function(passport, models) {
             }
         }).then(function(user){
             if(!user){
-                return done(null, false);
+                return done(null, null, "User does not exist");
             }
 
             if(!user.validPassword(password)){
-                return done(null, false);
+                return done(null, null, "Password incorrect");
             }
 
             user.loginSuccess = true;

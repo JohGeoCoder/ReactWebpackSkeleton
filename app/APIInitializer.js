@@ -1,10 +1,51 @@
-module.exports = function(app, models){
+module.exports = function(app, models, passport){
 	app.get('/api/data', function(req, res){
 	  models.ExampleModel.findOne().then(function(result){
 	    var thing = result.get({plain: true});
 	    res.json(thing);
 	  })
 	});
+
+	app.post('/api/login', function(req, res){
+		passport.authenticate('local-login', {}, function(err, user, info){
+			console.log("Error: " + err)
+			console.log("User: " + user)
+			console.log("Info: " + info)
+
+			if(err){
+				res.json({ 'success' : false });
+				return next(err);
+			}
+
+			if(!user){
+				res.json({ 'success' : false });
+				return res.redirect('/');
+			}
+
+			req.logIn(user, function(err){
+				if(err){
+					res.json({ 'success' : false });
+					return next(err);
+				}
+
+				res.json({ 'success' : true })
+			})
+
+		})(req, res, next);
+	});
+
+	app.post('/api/signup' function(req, res){
+		passport.authenticate('local-signup', {
+			successRedirect: '/',
+			failureRedirect: '/coaches',
+			failureFlash: true
+		},
+		function(err, user, info){
+			console.log("Error: " + err)
+			console.log("User: " + user)
+			console.log("Info: " + info)
+		})
+	})
 
 	//Example Sequelize code
 	/*app.get('/', function(req, res){
