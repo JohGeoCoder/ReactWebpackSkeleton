@@ -7,34 +7,34 @@ module.exports = function(app, models, passport){
 	});
 
 	app.post('/api/login', function(req, res){
-		passport.authenticate('local-login', {}, function(err, user, info){
+		passport.authenticate('local-login', function(err, user, info){
 			console.log("Error: " + err)
 			console.log("User: " + user)
-			console.log("Info: " + info)
+			console.log("Info: " + JSON.stringify(info))
 
 			if(err){
 				res.json({ 'success' : false });
-				return next(err);
+				return;
 			}
 
 			if(!user){
 				res.json({ 'success' : false });
-				return res.redirect('/');
+				return;
 			}
 
 			req.logIn(user, function(err){
 				if(err){
 					res.json({ 'success' : false });
-					return next(err);
+					return;
 				}
 
 				res.json({ 'success' : true })
 			})
 
-		})(req, res, next);
+		})(req, res);
 	});
 
-	app.post('/api/signup' function(req, res){
+	app.post('/api/signup', function(req, res){
 		passport.authenticate('local-signup', {
 			successRedirect: '/',
 			failureRedirect: '/coaches',

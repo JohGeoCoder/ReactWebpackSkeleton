@@ -10,9 +10,11 @@ export default React.createClass({
 	},
 
 	submitLogin: function(login){
-		console.log(login)
+		console.log("Submitting: " + JSON.stringify(login))
 
-		
+		ProjectName.LoginModule.SubmitLogin(this, login, function(result){
+			console.log("Returning: " + JSON.stringify(result))
+		});
 	},
 
 	handleSubmit : function(e){

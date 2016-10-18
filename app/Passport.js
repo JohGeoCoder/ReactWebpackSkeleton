@@ -96,6 +96,8 @@ module.exports = function(passport, models) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) { // callback with email and password from our form
+        console.log("Username: " + username)
+        console.log("Password: " + password)
 
         username = username.toLowerCase();
 

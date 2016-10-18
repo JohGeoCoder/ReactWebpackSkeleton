@@ -1,4 +1,5 @@
 require('./js/Message.js')
+require('./js/Login.js')
 require('./sass/styles.scss')
 
 import React from 'react'
