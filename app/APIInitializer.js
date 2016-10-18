@@ -7,6 +7,7 @@ module.exports = function(app, models, passport){
 	});
 
 	app.post('/api/login', function(req, res){
+		console.log(req.body)
 		passport.authenticate('local-login', function(err, user, info){
 			console.log("Error: " + err)
 			console.log("User: " + user)

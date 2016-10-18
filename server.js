@@ -2,6 +2,7 @@
 var express = require('express')
 var path = require('path')
 var compression = require('compression')
+var bodyParser = require('body-parser')
 var passport = require('passport')
 var app = express()
 var session = require('express-session')
@@ -16,6 +17,9 @@ var models = require('./app/ModelInitializer.js')(connection, Sequelize);
   exampleString: "Heyoooo",
   exampleBlob: "Hiyaaaaaa"
 })*/
+
+/*app.use(bodyParser.urlencoded({extended:true}))*/
+app.use(bodyParser.json())
 
 require('./app/Passport.js')(passport, models);
 
