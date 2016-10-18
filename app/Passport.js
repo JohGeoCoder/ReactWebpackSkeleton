@@ -103,7 +103,7 @@ module.exports = function(passport, models) {
 
         models.User.findOne({
             where: {
-                "local.username" : username
+                "username" : username
             }
         }).then(function(user){
             if(!user){
