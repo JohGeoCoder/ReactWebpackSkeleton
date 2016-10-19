@@ -10,7 +10,7 @@ module.exports = function(connection, Sequelize){
 			allowNull: false
 		},
 		passhash : {
-			type: Sequelize.BLOB('long'),
+			type: Sequelize.STRING(256),
 			allowNull: true
 		}
 	});

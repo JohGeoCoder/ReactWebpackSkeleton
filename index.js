@@ -1,5 +1,6 @@
 require('./js/Message.js')
 require('./js/Login.js')
+require('./js/SignUp.js')
 require('./sass/styles.scss')
 
 import React from 'react'
@@ -12,6 +13,7 @@ import Repo from './modules/Repo'
 import Home from './modules/Home'
 import Message from './modules/Message'
 import Login from './modules/Login'
+import SignUp from './modules/SignUp'
 
 render((
   <Router history={browserHistory}>
@@ -23,6 +25,7 @@ render((
       <Route path="/about" component={About} />
       <Route path="/message" component={Message} />
       <Route path="/login" component={Login} />
+      <Route path="/signup" component={SignUp} />
     </Route>
   </Router>
 ), document.getElementById('app'))

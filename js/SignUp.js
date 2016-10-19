@@ -1,7 +1,7 @@
 var ProjectName = window.ProjectName = window.ProjectName || {};
 
-ProjectName.LoginModule = function(){
-	var SubmitLogin = function(ReactInstance, Login, callback){
+ProjectName.SignupModule = function(){
+	var SubmitSignup = function(ReactInstance, Signup, callback){
 		var xhr = new XMLHttpRequest();
 	    ReactInstance.serverRequest = xhr;
 
@@ -18,12 +18,14 @@ ProjectName.LoginModule = function(){
 	      }
 	    }
 
-	    xhr.open('POST', '/api/login');
+	    xhr.open('POST', '/api/signup');
 	    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-	    xhr.send(JSON.stringify(Login));
+	    xhr.send(JSON.stringify(Signup));
+
+
 	};
 
 	return {
-		SubmitLogin : SubmitLogin
+		SubmitSignup : SubmitSignup
 	};
 }();

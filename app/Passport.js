@@ -1,5 +1,14 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
+
+var generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+function validPassword(password, passhash) {
+    return bcrypt.compareSync(password, passhash);
+};
 
 // expose this function to our app using module.exports
 module.exports = function(passport, models) {
@@ -37,18 +46,22 @@ module.exports = function(passport, models) {
     },
     function(req, username, password, done) {
 
+        console.log("Username: " + username)
+        console.log("Password: " + password)
+
         // asynchronous
         // User.findOne wont fire unless data is sent back
-        process.nextTick(function() {
+/*        process.nextTick(function() {*/
             models.User.findOrCreate({
                 where: {
                     username: username
                 },
                 defaults:{
                     username: username,
-                    passhash: password
+                    passhash: generateHash(password)
                 }
             }).then(function(user, created){
+                var created = user[1];
                 if(created){
                     return done(null, user);
                 } else{
@@ -85,7 +98,7 @@ module.exports = function(passport, models) {
             });  
             */  
 
-        });
+/*        });*/
 
     }));
 
@@ -110,11 +123,11 @@ module.exports = function(passport, models) {
                 return done(null, null, "User does not exist");
             }
 
-            if(!user.validPassword(password)){
+            console.log(user.passhash)
+            if(!validPassword(password, user.passhash)){
                 return done(null, null, "Password incorrect");
             }
 
-            user.loginSuccess = true;
             return done(null, user);
         }).error(function(err){
             return done(err);

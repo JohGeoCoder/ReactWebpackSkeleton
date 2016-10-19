@@ -9,11 +9,11 @@ export default React.createClass({
 		}
 	},
 
-	submitLogin: function(login){
-		console.log("Submitting: " + JSON.stringify(login))
+	submitSignup: function(signup){
+		console.log("Submitting: " + JSON.stringify(signup))
 
-		ProjectName.LoginModule.SubmitLogin(this, login, function(result){
-			console.log("Returning: " + JSON.stringify(result))
+		ProjectName.SignupModule.SubmitSignup(this, signup, function(result){
+			console.log(result);
 		});
 	},
 
@@ -27,7 +27,7 @@ export default React.createClass({
 			return;
 		}
 
-		this.submitLogin({
+		this.submitSignup({
 			username: username,
 			password: password
 		});
@@ -47,7 +47,7 @@ export default React.createClass({
 	render: function() {
 		return(
 			<div>
-				<h3>Log In</h3>
+				<h3>Sign Up</h3>
 				<form onSubmit={this.handleSubmit}>
 		    		<TextInput value={this.state.username}
 		    			elementId="form-username"
@@ -59,7 +59,7 @@ export default React.createClass({
 		    			value={this.state.password}
 		    			onChange={this.setValue.bind(this, 'password')} />
 		    		<div>
-		    			<button type="submit">Log In</button>
+		    			<button type="submit">Sign Up</button>
 		    		</div>
 				</form>
 			</div>
