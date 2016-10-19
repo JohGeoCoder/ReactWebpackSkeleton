@@ -18,8 +18,17 @@ var models = require('./app/ModelInitializer.js')(connection, Sequelize);
   exampleBlob: "Hiyaaaaaa"
 })*/
 
-/*app.use(bodyParser.urlencoded({extended:true}))*/
 app.use(bodyParser.json())
+app.use(session({
+  secret: "LongSecretKey",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(compression())
 
 require('./app/Passport.js')(passport, models);
 
@@ -60,18 +69,6 @@ if (isDeveloping) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
-
-
-app.use(session({
-  secret: "LongSecretKey",
-  resave: false,
-  saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(compression())
 
 var PORT = process.env.PORT || 8080
 app.listen(PORT, function() {

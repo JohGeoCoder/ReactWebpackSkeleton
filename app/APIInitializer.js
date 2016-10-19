@@ -7,11 +7,7 @@ module.exports = function(app, models, passport){
 	});
 
 	app.post('/api/login', function(req, res){
-		console.log(req.body)
 		passport.authenticate('local-login', function(err, user, info){
-			console.log("Error: " + err)
-			console.log("User: " + user)
-			console.log("Info: " + JSON.stringify(info))
 
 			if(err){
 				res.json({ 'success' : false });
@@ -37,9 +33,6 @@ module.exports = function(app, models, passport){
 
 	app.post('/api/signup', function(req, res){
 		passport.authenticate('local-signup', function(err, user, info){
-			console.log("Error: " + JSON.stringify(err))
-			console.log("User: " + JSON.stringify(user))
-			console.log("Info: " + JSON.stringify(info))
 
 			if(err){
 				res.json({ 'success' : false, 'error' : err, 'info' : info });

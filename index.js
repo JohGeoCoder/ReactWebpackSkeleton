@@ -15,9 +15,13 @@ import Message from './modules/Message'
 import Login from './modules/Login'
 import SignUp from './modules/SignUp'
 
+var routeChangeHandler = function(previousRoute, nextRoute){
+  console.log("Route Changed")
+}
+
 render((
   <Router history={browserHistory}>
-    <Route path="/" component={App}>
+    <Route path="/" onChange={routeChangeHandler} component={App}>
       <IndexRoute component={Home} />
       <Route path="/repos" component={Repos}>
         <Route path="/repos/:userName/:repoName" component={Repo} />
