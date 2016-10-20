@@ -17,6 +17,8 @@ import SignUp from './modules/SignUp'
 
 var routeChangeHandler = function(previousRoute, nextRoute){
   console.log("Route Changed")
+  console.log(previousRoute)
+  console.log(nextRoute)
 }
 
 render((
