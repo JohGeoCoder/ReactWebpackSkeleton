@@ -48,6 +48,19 @@ module.exports = function(app, models, passport){
 		})(req, res);
 	})
 
+	app.get('/api/getLoginStatus', function(req, res){
+		res.json({
+			'isAuthenticated' : req.isAuthenticated(),
+			'user' : req.user
+		})
+	})
+
+	app.get('/api/logout', function(req, res){
+		req.session.destroy(function(err){
+			res.json({success: true});
+		})
+	})
+
 /*	app.post('/api/signup', function(req, res){
 		passport.authenticate('local-signup', {
 			successRedirect: '/',

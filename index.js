@@ -14,6 +14,7 @@ import Home from './modules/Home'
 import Message from './modules/Message'
 import Login from './modules/Login'
 import SignUp from './modules/SignUp'
+import AdminPage from './modules/AdminPage'
 
 var routeChangeHandler = function(previousRoute, nextRoute){
   console.log("Route Changed")
@@ -32,6 +33,7 @@ render((
       <Route path="/message" component={Message} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
+      <Route path="/admin" component={AdminPage} />
     </Route>
   </Router>
 ), document.getElementById('app'))

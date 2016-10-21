@@ -14,6 +14,9 @@ export default React.createClass({
 
 		ProjectName.LoginModule.SubmitLogin(this, login, function(result){
 			console.log("Returning: " + JSON.stringify(result))
+			if(result.success){
+				location.reload()
+			}
 		});
 	},
 
@@ -32,10 +35,10 @@ export default React.createClass({
 			password: password
 		});
 
-		this.setState({
+		/*this.setState({
 	    	username: "",
 	    	password: ""
-	    });
+	    });*/
 	},
 
 	setValue: function(field, event){

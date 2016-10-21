@@ -1,8 +1,42 @@
 import React from 'react'
 import NavLink from './NavLink'
+import AdminNavLink from './AdminNavLink'
 
 export default React.createClass({
-  render() {
+  getInitialState: function(){
+    return {
+      'isAuthenticated' : false,
+      'user' : null
+    }
+  },
+
+  componentDidMount: function() {
+    var me = this;
+    ProjectName.LoginModule.GetLoginStatus(this, function(response){
+      me.setState(response);
+    });
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  logout: function(){
+    ProjectName.LoginModule.Logout(function(response){
+      console.log("Logged Out");
+      if(response.success){
+        location.reload();
+      }
+      
+    })
+  },
+
+  render: function() {
+    var logoutButton = null;
+    if(this.state.isAuthenticated){
+      logoutButton = <li><button onClick={this.logout}>Log Out</button></li>
+    }
+
     return (
       <div>
         <h1></h1>
@@ -13,6 +47,8 @@ export default React.createClass({
           <li><NavLink to="/message">Message</NavLink></li>
           <li><NavLink to="/login">Log In</NavLink></li>
           <li><NavLink to="/signup">Sign Up</NavLink></li>
+          <AdminNavLink to="/admin">Admin Page</AdminNavLink>
+          {logoutButton}
         </ul>
         {this.props.children}
       </div>
