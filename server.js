@@ -31,8 +31,7 @@ var sessionStore = new MySQLStore({
     checkExpirationInterval: 1 * 60 * 60 * 1000,
     expiration: 24 * 60 * 60 * 1000,
     createDatabaseTable: true,
-    connectionLimit: 1,
-    
+    connectionLimit: 1
 })
 
 app.use(session({
