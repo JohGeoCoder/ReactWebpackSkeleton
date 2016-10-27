@@ -1,12 +1,14 @@
 var ProjectName = window.ProjectName = window.ProjectName || {};
 
 ProjectName.Utilities = function(){
-	var sendRequest = function(o, callback, ReactInstance){
+	var SendRequest = function(o, callback, ReactInstance){
 		var options = extend(true, {
-			url: ''
+			url: '',
 			method: 'GET',
 			data: {}
-		}, options)
+		}, o)
+
+		var isCallbackFunction = callback && {}.toString.call(callback) === '[object Function]'
 
 		var xhr = new XMLHttpRequest();
 
@@ -19,22 +21,32 @@ ProjectName.Utilities = function(){
 	      if (xhr.readyState === DONE) {
 	        if (xhr.status === OK) {
 	          var response = JSON.parse(xhr.responseText);
-	          callback(response);
+	          if(isCallbackFunction){
+	          	callback(response);
+	          }
+	          
 	        } else {
 	          // An error occurred during the request.
 	          console.log('Error: ' + xhr.status);
-	          callback({
-	          	error: xhr.responseText
-	          })
+	          if(isCallbackFunction){
+				callback({
+					error: xhr.responseText
+				})
+	          }
+	          
 	        }
 	      }
 	    }
 
-	    xhr.open(options.method, url);
+	    xhr.open(options.method, options.url);
 	    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 	    xhr.send(JSON.stringify(options.data));
 	}
-}
+
+	return {
+		SendRequest: SendRequest
+	}
+}()
 
 //https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
 var extend = function () {

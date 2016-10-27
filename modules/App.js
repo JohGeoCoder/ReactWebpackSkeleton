@@ -1,6 +1,7 @@
 import React from 'react'
 import NavLink from './NavLink'
 import AdminNavLink from './AdminNavLink'
+import { browserHistory } from 'react-router'
 
 export default React.createClass({
   getInitialState: function(){
@@ -25,6 +26,7 @@ export default React.createClass({
     ProjectName.LoginModule.Logout(function(response){
       console.log("Logged Out");
       if(response.success){
+        browserHistory.push('/')
         location.reload();
       }
       

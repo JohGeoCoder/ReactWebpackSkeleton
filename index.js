@@ -1,3 +1,4 @@
+require('./js/Utilities.js')
 require('./js/Message.js')
 require('./js/Login.js')
 require('./js/SignUp.js')
