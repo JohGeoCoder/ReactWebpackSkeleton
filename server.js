@@ -4,6 +4,7 @@ var path = require('path')
 var compression = require('compression')
 var bodyParser = require('body-parser')
 var passport = require('passport')
+var csrf = require('csurf')
 var app = express()
 var session = require('express-session')
 var Sequelize = require('sequelize');
@@ -18,6 +19,8 @@ var models = require('./app/ModelInitializer.js')(connection, Sequelize);
   exampleString: "Heyoooo",
   exampleBlob: "Hiyaaaaaa"
 })*/
+
+
 
 app.use(bodyParser.json())
 
@@ -47,9 +50,12 @@ app.use(passport.session());
 
 app.use(compression())
 
+var csrfProtection = csrf()
+app.use(csrfProtection)
+
 require('./app/Passport.js')(passport, models);
 
-require('./app/APIInitializer.js')(app, models, passport);
+require('./app/APIInitializer.js')(app, models, passport, csrfProtection);
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
@@ -75,6 +81,7 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });

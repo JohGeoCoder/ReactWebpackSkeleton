@@ -1,4 +1,4 @@
-module.exports = function(app, models, passport){
+module.exports = function(app, models, passport, csrfProtection){
 	app.get('/api/data', function(req, res){
 	  models.ExampleModel.findOne().then(function(result){
 	    var thing = result.get({plain: true});
@@ -6,7 +6,7 @@ module.exports = function(app, models, passport){
 	  })
 	});
 
-	app.post('/api/login', function(req, res){
+	app.post('/api/login', csrfProtection, function(req, res){
 		passport.authenticate('local-login', function(err, user, info){
 
 			if(err){
@@ -31,7 +31,7 @@ module.exports = function(app, models, passport){
 		})(req, res);
 	});
 
-	app.post('/api/signup', function(req, res){
+	app.post('/api/signup', csrfProtection, function(req, res){
 		passport.authenticate('local-signup', function(err, user, info){
 
 			if(err){
@@ -48,7 +48,7 @@ module.exports = function(app, models, passport){
 		})(req, res);
 	})
 
-	app.get('/api/getLoginStatus', function(req, res){
+	app.get('/api/getLoginStatus', csrfProtection, function(req, res){
 		res.json({
 			'isAuthenticated' : req.isAuthenticated(),
 			'user' : req.user
