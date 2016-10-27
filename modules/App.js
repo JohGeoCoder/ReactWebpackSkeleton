@@ -1,6 +1,6 @@
 import React from 'react'
-import NavLink from './NavLink'
-import AdminNavLink from './AdminNavLink'
+import NavLink from './utility-components/NavLink'
+import AdminNavLink from './utility-components/AdminNavLink'
 import { browserHistory } from 'react-router'
 
 export default React.createClass({

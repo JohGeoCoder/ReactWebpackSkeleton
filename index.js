@@ -8,14 +8,15 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import App from './modules/App'
-import About from './modules/About'
-import Repos from './modules/Repos'
-import Repo from './modules/Repo'
-import Home from './modules/Home'
-import Message from './modules/Message'
-import Login from './modules/Login'
-import SignUp from './modules/SignUp'
-import AdminPage from './modules/AdminPage'
+import About from './modules/pages/About'
+import Repos from './modules/pages/Repos'
+import Repo from './modules/pages/Repo'
+import Home from './modules/pages/Home'
+import Message from './modules/pages/Message'
+import AdminPage from './modules/pages/AdminPage'
+import Login from './modules/utility-components/Login'
+import SignUp from './modules/utility-components/SignUp'
+
 
 var routeChangeHandler = function(previousRoute, nextRoute){
   console.log("Route Changed")

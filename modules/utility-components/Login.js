@@ -1,5 +1,5 @@
 import React from 'react'
-import TextInput from './text-modules/TextInput'
+import TextInput from '../utility-components/TextInput'
 
 export default React.createClass({
 	getInitialState: function(){
