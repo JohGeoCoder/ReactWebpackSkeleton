@@ -61,6 +61,10 @@ module.exports = function(app, models, passport, csrfProtection){
 		})
 	})
 
+	app.get('/api/getCsrf', csrfProtection, function(req, res){
+		res.json({'csrf': req.csrfToken()})
+	})
+
 /*	app.post('/api/signup', function(req, res){
 		passport.authenticate('local-signup', {
 			successRedirect: '/',
