@@ -5,8 +5,23 @@ export default React.createClass({
 	getInitialState: function(){
 		return {
 			username: "",
-			password: ""
+			password: "",
+			csrf: ""
 		}
+	},
+
+	componentDidMount: function() {
+		var me = this;
+		ProjectName.Utilities.SendRequest({
+			url: 'api/getCsrf',
+			method: 'GET'
+		}, function(data){
+			me.setState({
+				username: me.state.username,
+				password: me.state.password,
+				csrf: data.csrf
+			})
+		})
 	},
 
 	submitLogin: function(login){
@@ -32,7 +47,8 @@ export default React.createClass({
 
 		this.submitLogin({
 			username: username,
-			password: password
+			password: password,
+			_csrf: this.state.csrf
 		});
 
 		/*this.setState({
